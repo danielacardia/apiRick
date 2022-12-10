@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import "../styles/detailCharacter.css";
 import getConfig from "../utils/getConfig";
-import {GrLinkPrevious} from"react-icons/gr"
 
 const DetailCharacter = () => {
   const [character, setCharacter] = useState([]);
@@ -17,7 +16,7 @@ const DetailCharacter = () => {
       .get(`https://rickandmortyapi.com/api/character/${id}`)
       .then((res) => setCharacter(res.data));
 
-      axios
+    axios
       .get(`https://rickandmortyapi.com/api/character/${id}`)
       .then((res) => setCharacter(res.data));
 
@@ -28,8 +27,12 @@ const DetailCharacter = () => {
     const idCharacter = {
       id: id,
     };
-    axios.post(`${process.env.REACT_APP_HOST}/personajes`, idCharacter, getConfig());
-  }, [selectFavorite]);
+    axios.post(
+      `${process.env.REACT_APP_HOST}/personajes`,
+      idCharacter,
+      getConfig()
+    );
+  },[selectFavorite]);
 
   console.log(selectFavorite);
   const buttonStatus = (status) => {
@@ -44,17 +47,19 @@ const DetailCharacter = () => {
 
   const setFavorite = () => {
     axios
-      .post(`${process.env.REACT_APP_HOST}/personajes/favoritos/${id}`, {}, getConfig())
+      .post(
+        `${process.env.REACT_APP_HOST}/personajes/favoritos/${id}`,
+        {},
+        getConfig()
+      )
       .catch((error) => console.error(error));
     axios
       .get(`${process.env.REACT_APP_HOST}/personajes/${id}`, getConfig())
       .then((res) => setSelectFavorite(res.data.data.favorite));
   };
 
-
   return (
     <div className="detailCharacterContainer">
-     
       <div className="detailCharacter">
         <div className="namContainer">
           <h4>{character.name}</h4>

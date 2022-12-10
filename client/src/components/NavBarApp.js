@@ -3,19 +3,16 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { useNavigate } from "react-router-dom";
-import "../styles/navBar.css"
+import "../styles/navBar.css";
 
 const NavBarApp = () => {
-
   const token = localStorage.getItem("token", "");
-const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const logOut=()=>{
-    localStorage.setItem("token","")
-    navigate("/login")
-    
-  }
-
+  const logOut = () => {
+    localStorage.setItem("token", "");
+    navigate("/login");
+  };
 
   return (
     <Navbar className="barrContainer" bg="light" expand="lg">
@@ -26,7 +23,9 @@ const navigate = useNavigate()
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link href="#/user">Home</Nav.Link>
-              <Nav.Link href="#/" onClick={logOut}>Logout</Nav.Link>
+              <Nav.Link href="#/" onClick={logOut}>
+                Logout
+              </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         ) : (

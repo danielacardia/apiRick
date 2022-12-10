@@ -12,27 +12,26 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
-import "../styles/signup.css"
+import "../styles/signup.css";
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
-    if(data.password === data.repeatPass){
-      axios.post(`${process.env.REACT_APP_HOST}/usuarios/signup`, data)
-      .then((res) => {
-        alert(`usuario ${data.name} creado, por favor inicie sesion`);
-        navigate("/");
-      })
-      .catch(error=>{
-        alert(`${error.response.data.message}`)
-        console.log(error)
-      })
-      
-    }else{
-      alert(
-        "Passwords do not match")
+    if (data.password === data.repeatPass) {
+      axios
+        .post(`${process.env.REACT_APP_HOST}/usuarios/signup`, data)
+        .then((res) => {
+          alert(`usuario ${data.name} creado, por favor inicie sesion`);
+          navigate("/");
+        })
+        .catch((error) => {
+          alert(`${error.response.data.message}`);
+          console.log(error);
+        });
+    } else {
+      alert("Passwords do not match");
     }
   };
   return (
@@ -97,8 +96,10 @@ const SignUp = () => {
                 className="order-1 order-lg-2 d-flex align-items-center"
               >
                 <div className="containerimg">
-                  <img src="https://img.freepik.com/vector-premium/interfaz-usuario-registro-o-registro-usuarios-utilizan-inicio-sesion-contrasena-seguros-recopilacion-datos-linea_566886-2046.jpg?w=2000" alt="" />
-
+                  <img
+                    src="https://img.freepik.com/vector-premium/interfaz-usuario-registro-o-registro-usuarios-utilizan-inicio-sesion-contrasena-seguros-recopilacion-datos-linea_566886-2046.jpg?w=2000"
+                    alt=""
+                  />
                 </div>
               </MDBCol>
             </MDBRow>
