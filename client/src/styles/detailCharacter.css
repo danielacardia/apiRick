@@ -1,0 +1,150 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: 0;
+}
+
+
+.detailCharacter{
+    text-align: center;
+    padding: 1.5rem;
+    margin-top: 6rem;
+}
+
+.detailCharacter{
+    position: relative;
+    width: 70vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(221, 221, 221);
+    box-shadow: 0 6px 6px rgba(104, 104, 104, 0.769);
+    justify-content: center;
+}
+.detailCharacterContainer{
+    display: flex;
+    justify-content: center;
+}
+
+img{
+    width: 70%;
+    margin-top: 1rem;
+    max-width: 18rem;
+}
+ .favoriteButton>h1{
+    color: rgb(255, 255, 255);
+    font-size:  2.6vw;
+    bottom: 15rem ;
+    left: 1rem;
+    filter: drop-shadow(3px 5px 6px rgb(0 0 0 / 0.4));
+    margin-left: 1rem;
+    margin-bottom: 0;
+ }
+
+ .favoriteButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2rem;
+    cursor: pointer;
+ }
+
+ .favoriteButton:hover>h1{
+    color: rgb(245, 0, 0);
+ }
+
+ .textStatus{
+    font-weight: 800;
+ }
+ span{
+    font-weight: 100;
+ }
+
+ h4{
+    text-shadow: 0 4px 5px rgba(94, 91, 91, 0.466)
+    ;
+    font-size: 3vw;
+    color: white;
+    margin-bottom: 0;
+ }
+ h5{
+    font-size: 2.7vw;
+    margin: 0ch;
+ }
+
+ .detailCharacter>h5{
+    margin-bottom: 0.3rem;
+ }
+
+ .favoriteButton{
+    font-size: 2.5vw;
+    width: 100%;
+    background-color: black;
+    color: white;
+ }
+ .namContainer{
+    background-color: black;
+    width: 100%;
+    margin-bottom: 2rem;
+ }
+
+ .favoriteButtonOn>h1{
+   color: rgb(255, 17, 17);
+    font-size: 2.6vw;
+    bottom: 15rem ;
+    left: 1rem;
+    filter: drop-shadow(3px 5px 6px rgb(0 0 0 / 0.4));
+    margin-left: 1rem;
+    margin-bottom: 0;
+        cursor: pointer;
+
+ }
+
+ .favoriteButtonOn{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 2rem;
+   font-size: 2.5vw;
+    width: 100%;
+    background-color: black;
+    color: white;
+ 
+}
+ 
+.favoriteButtonOn:hover>h1{
+   color: rgb(217, 217, 217);
+}
+
+
+ @media screen and (min-width: 866px) {
+    
+
+ h4{
+  
+    font-size: 20px;
+
+
+ }
+ h5{
+    font-size: 17px;
+    margin: 0ch;
+ }
+ .favoriteButton>h1{
+    font-size: 22px;
+ }
+ .favoriteButtonOn>h1{
+   font-size: 22px;
+}
+
+ .favoriteButton>span{
+    font-size: 22px;
+ }
+ .favoriteButtonOn>span{
+   font-size: 22px;
+}
+
+ }
+ 
+

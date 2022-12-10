@@ -1,0 +1,16 @@
+*{
+    padding: 0%;
+    margin: 0;
+    box-sizing: 0;
+}
+
+.barrContainer{
+    position: fixed;
+    width: 100vw;
+    background-color: white;
+    z-index: 5;
+    height: 4rem;
+    padding: 0;
+    top: 0;
+}
+
