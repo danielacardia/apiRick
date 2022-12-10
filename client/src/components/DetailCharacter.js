@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import "../styles/detailCharacter.css";
 import getConfig from "../utils/getConfig";
+import {GrLinkPrevious} from"react-icons/gr"
 
 const DetailCharacter = () => {
   const [character, setCharacter] = useState([]);
@@ -50,10 +51,10 @@ const DetailCharacter = () => {
       .then((res) => setSelectFavorite(res.data.data.favorite));
   };
 
-  const getFavorite = () => {};
 
   return (
     <div className="detailCharacterContainer">
+     
       <div className="detailCharacter">
         <div className="namContainer">
           <h4>{character.name}</h4>

@@ -63,7 +63,7 @@ const favoriteCharacter = catchAsync(async (req, res, next) => {
 const getAllCharaters = catchAsync(async (req, res, next) => {
 	const { sessionUser } = req;
 
-	const allCharacter = await Favorite.findAll({where:{status:"active", userId:sessionUser.id}})
+	const allCharacter = await Favorite.findAll({where:{status:"active", userId:sessionUser.id, favorite:"true"}})
 
 
 	res.status(201).json({

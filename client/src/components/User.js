@@ -58,7 +58,7 @@ setCity(user.city)
     axios
       .get(`${process.env.REACT_APP_HOST}/usuarios/${id}`,getConfig())
       .then((res) => setUser(res.data.data.user));
-  }, []);
+  }, [favoriteList]);
 
   const buttonStatus = (status) => {
     if (status === "Alive") {
@@ -100,6 +100,10 @@ setCity(user.city)
       const character = favorite.ref_api
       array.push(character)
     })
+    axios
+    .get(`${process.env.REACT_APP_HOST}/personajes`,getConfig())
+    .then((res) => setFavoriteList(res.data.data))
+    .catch(error=>console.error(error))
  }
 
 
@@ -107,11 +111,12 @@ setCity(user.city)
  const toFavorites=(e)=>{
   arrayCharacteres()
   const list = array.toString()
-  console.log(list)
+ 
   axios.get(`https://rickandmortyapi.com/api/character/${list}`)
   .then(res=>{setAs(res.data)
+    console.log(as)
               setCharacters(as)
-              console.log(characters)})
+              })
 axios.get(`https://rickandmortyapi.com/api/character/${list}`)
 .then(res=>{setCharacters(res.data)})
 
@@ -125,7 +130,6 @@ axios.get(`https://rickandmortyapi.com/api/character/${list}`)
  }
 
 
-console.log(characters)
   return (
     <div className="containerCharacterPage">
       <div className="containerUser">
