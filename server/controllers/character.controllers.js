@@ -41,8 +41,8 @@ const favoriteCharacter = catchAsync(async (req, res, next) => {
 	// Check if it is the first time the user marks the song as favorite
 	const favoriteExists = await Favorite.findOne({
 		where: { ref_api, userId: sessionUser.id },
+		
 	});
-
 
 	if (!favoriteExists) {
 		// Add song to favorites to that user
@@ -63,7 +63,7 @@ const favoriteCharacter = catchAsync(async (req, res, next) => {
 const getAllCharaters = catchAsync(async (req, res, next) => {
 	const { sessionUser } = req;
 
-	const allCharacter = await Favorite.findAll({where:{status:"active", userId:sessionUser.id, favorite:"true"}})
+	const allCharacter = await Favorite.findAll({where:{status:"active", userId:sessionUser.id, favorite:true}})
 
 
 	res.status(201).json({
