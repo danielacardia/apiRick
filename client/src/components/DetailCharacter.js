@@ -55,7 +55,7 @@ const DetailCharacter = () => {
     setFavorite();
     refresh();
   };
-  console.log(selectFavorite.favorite);
+  console.log(selectFavorite?.favorite);
 
   return (
     <div className="detailCharacterContainer">
