@@ -85,7 +85,7 @@ const DetailCharacter = () => {
         <br />
         <div
           className={
-            selectFavorite.favorite ? "favoriteButtonOn" : "favoriteButton"
+            selectFavorite?.favorite ? "favoriteButtonOn" : "favoriteButton"
           }
         >
           <span> Add to favorites </span>
