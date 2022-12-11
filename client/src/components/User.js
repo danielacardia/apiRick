@@ -15,12 +15,12 @@ const User = () => {
 
   const { id } = useParams();
   const [characters, setCharacters] = useState([]);
-  const [user, setUser] = useState({});
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const [favoriteList, setFavoriteList] = useState();
+  const [user, setUser] = useState([]);
   //const [arrayFavorites,setArrayFavorites]=useState()
-  let array = [];
+  const [array, setArray] = useState([]);
   const [as, setAs] = useState();
 
   const [name, setName] = useState("");
@@ -41,7 +41,10 @@ const User = () => {
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_HOST}/personajes`, getConfig())
-      .then((res) => setFavoriteList(res.data.data))
+      .then((res) => {
+        setFavoriteList(res.data.data);
+        console.log(favoriteList);
+      })
       .catch((error) => console.error(error));
 
     axios
@@ -51,6 +54,15 @@ const User = () => {
     axios
       .get(`${process.env.REACT_APP_HOST}/usuarios/${id}`, getConfig())
       .then((res) => setUser(res.data.data.user));
+
+      axios
+      .get(`${process.env.REACT_APP_HOST}/personajes`, getConfig())
+      .then((res) => {
+        setFavoriteList(res.data.data);
+        console.log(favoriteList);
+      })
+      .catch((error) => console.error(error));
+
   }, []);
 
   const buttonStatus = (status) => {
@@ -70,7 +82,7 @@ const User = () => {
     adress,
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = () => {
     axios
       .patch(
         `${process.env.REACT_APP_HOST}/usuarios/${id}`,
@@ -88,7 +100,7 @@ const User = () => {
   };
 
   const arrayCharacteres = () => {
-    favoriteList?.map((favorite) => {
+    favoriteList.map((favorite) => {
       const character = favorite.ref_api;
       array.push(character);
     });
@@ -98,24 +110,38 @@ const User = () => {
       .catch((error) => console.error(error));
   };
 
-  const toFavorites = (e) => {
+  const toFavorites = (id) => {
     arrayCharacteres();
-    const list = array.toString();
-
     axios
-      .get(`https://rickandmortyapi.com/api/character/${list}`)
+      .get(`https://rickandmortyapi.com/api/character/${array}`)
       .then((res) => {
         setAs(res.data);
         console.log(as);
         setCharacters(as);
       });
     
+      
   };
+
+ 
 
   const refreshList = () => {
     axios
       .get(`https://rickandmortyapi.com/api/character/?page=2`)
       .then((res) => setCharacters(res.data.results));
+  };
+
+  const gocharacterDetails = (id) => {
+    const idCharacter = {
+      id: id,
+    };
+
+    axios.post(
+      `${process.env.REACT_APP_HOST}/personajes`,
+      idCharacter,
+      getConfig()
+    );
+    navigate(`/user/${id}`);
   };
 
   return (
@@ -133,7 +159,7 @@ const User = () => {
           </div>
 
           <div className="controlBar">
-            <button className="selectPersonaje" onClick={toFavorites}>
+            <button className="selectPersonaje" onClick={()=>toFavorites()}>
               Favoritos
             </button>
           </div>
@@ -233,7 +259,7 @@ const User = () => {
             <img
               src={character.image}
               alt=""
-              onClick={() => navigate(`/user/${character.id}`)}
+              onClick={() => gocharacterDetails(character.id)}
             />
             <h5>{character.name}</h5>
             <div className="containerStatus">

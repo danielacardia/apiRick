@@ -8,6 +8,7 @@ import getConfig from "../utils/getConfig";
 const DetailCharacter = () => {
   const [character, setCharacter] = useState([]);
   const { id } = useParams();
+  const [button, setButton] = useState(true);
 
   const [selectFavorite, setSelectFavorite] = useState({});
 
@@ -19,22 +20,17 @@ const DetailCharacter = () => {
     axios
       .get(`https://rickandmortyapi.com/api/character/${id}`)
       .then((res) => setCharacter(res.data));
-
     axios
       .get(`${process.env.REACT_APP_HOST}/personajes/${id}`, getConfig())
-      .then((res) => setSelectFavorite(res.data.data?.favorite));
+      .then((res) => setSelectFavorite(res.data.data));
+  }, []);
 
-    const idCharacter = {
-      id: id,
-    };
-    axios.post(
-      `${process.env.REACT_APP_HOST}/personajes`,
-      idCharacter,
-      getConfig()
-    );
-  },[selectFavorite]);
+  const refresh = () => {
+    axios
+      .get(`${process.env.REACT_APP_HOST}/personajes/${id}`, getConfig())
+      .then((res) => setSelectFavorite(res.data.data));
+  };
 
-  console.log(selectFavorite);
   const buttonStatus = (status) => {
     if (status === "Alive") {
       return <div className="statusAlived"></div>;
@@ -46,17 +42,20 @@ const DetailCharacter = () => {
   };
 
   const setFavorite = () => {
-    axios
-      .post(
-        `${process.env.REACT_APP_HOST}/personajes/favoritos/${id}`,
-        {},
-        getConfig()
-      )
-      .catch((error) => console.error(error));
-    axios
-      .get(`${process.env.REACT_APP_HOST}/personajes/${id}`, getConfig())
-      .then((res) => setSelectFavorite(res.data.data.favorite));
+    axios.post(
+      `${process.env.REACT_APP_HOST}/personajes/favoritos/${id}`,
+      {},
+      getConfig()
+    );
+    refresh();
   };
+
+  const changeColor = () => {
+    refresh();
+    setFavorite();
+    refresh();
+  };
+  console.log(selectFavorite.favorite);
 
   return (
     <div className="detailCharacterContainer">
@@ -85,11 +84,12 @@ const DetailCharacter = () => {
         </h5>
         <br />
         <div
-          className={selectFavorite ? "favoriteButtonOn" : "favoriteButton"}
-          onClick={() => setFavorite()}
+          className={
+            selectFavorite.favorite ? "favoriteButtonOn" : "favoriteButton"
+          }
         >
           <span> Add to favorites </span>
-          <h1 className="on">
+          <h1 className="on" onClick={() => changeColor()}>
             <FaHeart />
           </h1>
         </div>
