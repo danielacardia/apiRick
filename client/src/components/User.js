@@ -4,7 +4,11 @@ import { useEffect, useState } from "react";
 import "../styles/user.css";
 import Form from "react-bootstrap/Form";
 import { useNavigate, useParams } from "react-router-dom";
-import { AiOutlineUser,AiOutlineStar,AiOutlineAppstore } from "react-icons/ai";
+import {
+  AiOutlineUser,
+  AiOutlineStar,
+  AiOutlineAppstore,
+} from "react-icons/ai";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useForm } from "react-hook-form";
@@ -109,17 +113,17 @@ const User = () => {
   };
 
   const toFavorites = (id) => {
- 
     arrayCharacteres();
-    if(array.length<2){
-      alert("agrege un personaje!!")
-    }else{
-    axios
-      .get(`https://rickandmortyapi.com/api/character/${array}`)
-      .then((res) => {
-        setAs(res.data);
-      });
-    setActiveFavorites(true);}
+    if (array.length < 2) {
+      alert("agrege por lo menos dos personaje!!");
+    } else {
+      axios
+        .get(`https://rickandmortyapi.com/api/character/${array}`)
+        .then((res) => {
+          setAs(res.data);
+        });
+      setActiveFavorites(true);
+    }
   };
 
   const refreshList = () => {
@@ -142,7 +146,7 @@ const User = () => {
     navigate(`/user/${id}`);
   };
 
-console.log(array)
+  console.log(array);
   return (
     <div className="containerCharacterPage">
       <div className="containerUser">
@@ -159,12 +163,15 @@ console.log(array)
 
           <div className="controlBar">
             <button className="selectPersonaje" onClick={() => toFavorites()}>
-            <AiOutlineStar/> Favoritos
+              <AiOutlineStar /> Favoritos
             </button>
           </div>
           <div className="controlBar">
-            <button className="selectPersonaje buttonRigth" onClick={refreshList}>
-            <AiOutlineAppstore/> Todos{" "}
+            <button
+              className="selectPersonaje buttonRigth"
+              onClick={refreshList}
+            >
+              <AiOutlineAppstore /> Todos{" "}
             </button>
           </div>
           <div className="editUserForm">
@@ -253,8 +260,8 @@ console.log(array)
         </div>
       </div>
       <div className="containerCharacter">
-        {activeFavorites? 
-        as?.map((character) => (
+        {activeFavorites
+          ? as?.map((character) => (
               <div className="character" key={character.id}>
                 <img
                   src={character.image}
