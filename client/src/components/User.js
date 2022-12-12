@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import "../styles/user.css";
 import Form from "react-bootstrap/Form";
 import { useNavigate, useParams } from "react-router-dom";
-import { AiOutlineUser } from "react-icons/ai";
+import { AiOutlineUser,AiOutlineStar,AiOutlineAppstore } from "react-icons/ai";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useForm } from "react-hook-form";
@@ -27,6 +27,7 @@ const User = () => {
   const [birthdate, setBirthdate] = useState("");
   const [adress, setAdress] = useState("");
   const [city, setCity] = useState("");
+  const [activeFavorites, setActiveFavorites] = useState(false);
 
   const handleClose = () => setShow(false);
 
@@ -43,7 +44,6 @@ const User = () => {
       .get(`${process.env.REACT_APP_HOST}/personajes`, getConfig())
       .then((res) => {
         setFavoriteList(res.data.data);
-        console.log(favoriteList);
       })
       .catch((error) => console.error(error));
 
@@ -55,14 +55,12 @@ const User = () => {
       .get(`${process.env.REACT_APP_HOST}/usuarios/${id}`, getConfig())
       .then((res) => setUser(res.data.data.user));
 
-      axios
+    axios
       .get(`${process.env.REACT_APP_HOST}/personajes`, getConfig())
       .then((res) => {
         setFavoriteList(res.data.data);
-        console.log(favoriteList);
       })
       .catch((error) => console.error(error));
-
   }, []);
 
   const buttonStatus = (status) => {
@@ -116,19 +114,15 @@ const User = () => {
       .get(`https://rickandmortyapi.com/api/character/${array}`)
       .then((res) => {
         setAs(res.data);
-        console.log(as);
-        setCharacters(as);
       });
-    
-      
+    setActiveFavorites(true);
   };
-
- 
 
   const refreshList = () => {
     axios
       .get(`https://rickandmortyapi.com/api/character/?page=2`)
       .then((res) => setCharacters(res.data.results));
+    setActiveFavorites(false);
   };
 
   const gocharacterDetails = (id) => {
@@ -159,13 +153,13 @@ const User = () => {
           </div>
 
           <div className="controlBar">
-            <button className="selectPersonaje" onClick={()=>toFavorites()}>
-              Favoritos
+            <button className="selectPersonaje" onClick={() => toFavorites()}>
+            <AiOutlineStar/> Favoritos
             </button>
           </div>
           <div className="controlBar">
-            <button className="selectPersonaje" onClick={refreshList}>
-              Todos{" "}
+            <button className="selectPersonaje buttonRigth" onClick={refreshList}>
+            <AiOutlineAppstore/> Todos{" "}
             </button>
           </div>
           <div className="editUserForm">
@@ -254,22 +248,39 @@ const User = () => {
         </div>
       </div>
       <div className="containerCharacter">
-        {characters?.map((character) => (
-          <div className="character" key={character.id}>
-            <img
-              src={character.image}
-              alt=""
-              onClick={() => gocharacterDetails(character.id)}
-            />
-            <h5>{character.name}</h5>
-            <div className="containerStatus">
-              <div>
-                <p>{character.status}</p>
+        {activeFavorites
+          ? as?.map((character) => (
+              <div className="character" key={character.id}>
+                <img
+                  src={character.image}
+                  alt=""
+                  onClick={() => gocharacterDetails(character.id)}
+                />
+                <h5>{character.name}</h5>
+                <div className="containerStatus">
+                  <div>
+                    <p>{character.status}</p>
+                  </div>
+                  {buttonStatus(character.status)}
+                </div>
               </div>
-              {buttonStatus(character.status)}
-            </div>
-          </div>
-        ))}
+            ))
+          : characters?.map((character) => (
+              <div className="character" key={character.id}>
+                <img
+                  src={character.image}
+                  alt=""
+                  onClick={() => gocharacterDetails(character.id)}
+                />
+                <h5>{character.name}</h5>
+                <div className="containerStatus">
+                  <div>
+                    <p>{character.status}</p>
+                  </div>
+                  {buttonStatus(character.status)}
+                </div>
+              </div>
+            ))}
       </div>
     </div>
   );

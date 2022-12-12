@@ -10,8 +10,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 0 1rem;
+    margin-right: 0 ;
     
 }
+
+
 
 .titleLogin{
     width: 30vw;

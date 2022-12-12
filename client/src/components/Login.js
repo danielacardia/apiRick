@@ -15,7 +15,6 @@ const Login = () => {
     axios
       .post(`${process.env.REACT_APP_HOST}/usuarios/login`, data)
       .then((res) => {
-        console.log(res.data.data.token);
         localStorage.setItem("token", res.data.data.token);
         navigate(`/${res.data.data.user.id}`);
       })
@@ -30,10 +29,10 @@ const Login = () => {
   };
 
   return (
-    <div className="containerLogin">
-      <h1 className="titleLogin">User App</h1>
-      <Form onSubmit={handleSubmit(onSubmit)}>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
+    <div className="containerLogin ">
+      <h1 className="titleLogin ">User App</h1>
+      <Form  onSubmit={handleSubmit(onSubmit)}>
+        <Form.Group className="mb-3 " controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control
             type="email"
