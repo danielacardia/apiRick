@@ -109,13 +109,17 @@ const User = () => {
   };
 
   const toFavorites = (id) => {
+ 
     arrayCharacteres();
+    if(array.length<2){
+      alert("agrege un personaje!!")
+    }else{
     axios
       .get(`https://rickandmortyapi.com/api/character/${array}`)
       .then((res) => {
         setAs(res.data);
       });
-    setActiveFavorites(true);
+    setActiveFavorites(true);}
   };
 
   const refreshList = () => {
@@ -138,6 +142,7 @@ const User = () => {
     navigate(`/user/${id}`);
   };
 
+console.log(array)
   return (
     <div className="containerCharacterPage">
       <div className="containerUser">
@@ -248,8 +253,8 @@ const User = () => {
         </div>
       </div>
       <div className="containerCharacter">
-        {activeFavorites
-          ? as?.map((character) => (
+        {activeFavorites? 
+        as?.map((character) => (
               <div className="character" key={character.id}>
                 <img
                   src={character.image}
