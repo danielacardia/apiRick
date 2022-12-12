@@ -76,7 +76,6 @@ const User = () => {
       return <div className="statusUnknown"></div>;
     }
   };
-
   const userEdit = {
     name: name,
     city,
@@ -146,7 +145,6 @@ const User = () => {
     navigate(`/user/${id}`);
   };
 
-  console.log(array);
   return (
     <div className="containerCharacterPage">
       <div className="containerUser">

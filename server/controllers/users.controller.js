@@ -15,11 +15,11 @@ dotenv.config({ path: './config.env' });
 // Gen random jwt signs
 
 const getUserId = catchAsync(async (req, res, next) => {
-        const {id} = req.body
+        const {id} = req.params
 
 	const user = await User.findOne({
 		attributes: { exclude: ['password'] },
-		where: { status: 'active' },
+		where: { status: 'active', id },
 		include: { model: Character, through: { where: { favorite: true} } },
 	});
 
